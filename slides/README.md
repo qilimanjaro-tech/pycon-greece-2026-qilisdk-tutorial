@@ -7,7 +7,7 @@ teaching happens in the `notebooks/`; these slides orient and recap.
 
 - `qilisdk_tutorial.md`: the deck source (edit this).
 - `qilisdk_tutorial.html`: pre-rendered, self-contained-ish (loads `img/` alongside it).
-- `img/`: the two diagrams (`overall.jpg`, `qtensor.jpg`) and the QR codes for the QiliSDK source and docs.
+- `img/`: the two diagrams (`overall.jpg`, `qtensor.jpg`) and the QR codes for this tutorial's repository, the QiliSDK source, and the docs.
 
 ## Present / edit
 

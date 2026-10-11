@@ -113,10 +113,12 @@ section.divider code { background: rgba(255,255,255,.18); color: #fff; }
 
 ## Links & QR codes
 
-<!-- Add the QR code and link for this tutorial's repository here once it is published,
-     as the first entry of the grid (the EuroPython deck used img/qr-tutorial.svg). -->
-
 <div class="qrgrid">
+<div>
+<img src="img/qr-tutorial.svg" alt="QR code for the PyCon Greece 2026 tutorial repository" />
+<div class="lbl">This tutorial</div>
+<div class="url"><a href="https://github.com/qilimanjaro-tech/pycon-greece-2026-qilisdk-tutorial">github.com/qilimanjaro-tech/<br>pycon-greece-2026-qilisdk-tutorial</a></div>
+</div>
 <div>
 <img src="img/qr-qilisdk.svg" alt="QR code for the QiliSDK GitHub repository" />
 <div class="lbl">QiliSDK source</div>
@@ -135,8 +137,8 @@ section.divider code { background: rgba(255,255,255,.18); color: #fff; }
 
 **Two ways to run everything, pick one:**
 
-- **Local**: `pip install "qilisdk==0.2.1"` (Python 3.11–3.13), then open the notebooks.
-- **Colab**: every notebook's first cell installs QiliSDK (pinned to `0.2.1`) automatically. Zero local setup.
+- **Local**: `pip install "qilisdk==0.3.0"` (Python 3.11–3.14), then open the notebooks.
+- **Colab**: every notebook's first cell installs QiliSDK (pinned to `0.3.0`) automatically. Zero local setup.
 
 **Right now:** open and run `notebooks/00_setup.ipynb`.
 If its last cell prints counts like `{'00': ~500, '11': ~500}`, you're ready. ✅
@@ -152,7 +154,7 @@ If its last cell prints counts like `{'00': ~500, '11': ~500}`, you're ready. �
 - Notebooks come in two flavors:
   - `notebooks/…`: **attendee** version (blank `# TODO` cells)
   - `notebooks/solutions/…`: **completed**, with outputs
-- Every snippet is **verified to run** against `qilisdk 0.2.1`.
+- Every snippet is **verified to run** against `qilisdk 0.3.0`.
 
 > Stuck on an exercise? The solution is one folder away, but try first. 🙂
 
