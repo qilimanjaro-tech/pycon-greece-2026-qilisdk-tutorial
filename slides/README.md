@@ -1,22 +1,22 @@
 # Slides: *Learn Quantum Computing with QiliSDK*
 
-A [Marp](https://marp.app/) deck (Markdown-based). It's a **thin framing deck**: title, motivation
-("why quantum computing", the 2026 reality check, what we'll build), the architecture and `QTensor`
-diagrams, two or three concept slides per tutorial part, and pointers to the full tutorial. The actual
-teaching happens in the `notebooks/`; these slides orient and recap.
+These slides use [Marp](https://marp.app/), which renders Markdown as a presentation. They introduce
+the tutorial, explain the main concepts, show the QiliSDK architecture and `QTensor` diagrams, and
+point to further material. The worked examples and exercises are in `notebooks/`.
 
 - `qilisdk_tutorial.md`: the deck source (edit this).
-- `qilisdk_tutorial.html`: pre-rendered, self-contained-ish (loads `img/` alongside it).
+- `qilisdk_tutorial.html`: the rendered deck; it loads images from the adjacent `img/` folder. Re-render it after editing the Markdown source.
 - `img/`: the two diagrams (`overall.jpg`, `qtensor.jpg`) and the QR codes for this tutorial's repository, the QiliSDK source, and the docs.
 
 ## Present / edit
 
-- **Easiest:** VS Code + the **“Marp for VS Code”** extension → live preview, present, and one-click
-  export to PDF/PPTX/HTML.
+- **VS Code:** use the **“Marp for VS Code”** extension to preview, present, or export to PDF, PPTX, or HTML.
 - **Browser:** open `qilisdk_tutorial.html` (keep the `img/` folder next to it). Arrow keys to navigate;
   press `f` for fullscreen.
 
-## Re-render with the Marp CLI
+## Re-render with the Marp command-line interface
+
+With Node.js and npm installed, run the commands below from the repository root. `npx` runs the Marp tool to convert the source into the requested format.
 
 ```bash
 cd slides
@@ -29,5 +29,6 @@ npx @marp-team/marp-cli@latest qilisdk_tutorial.md --pdf  --allow-local-files
 npx @marp-team/marp-cli@latest qilisdk_tutorial.md --pptx --allow-local-files
 ```
 
-> The deck uses KaTeX math (`$…$`), a custom purple theme (inline `<style>`), and `class:` directives
-> for the title/divider slides. Diagrams are sized by height (`![h:500](img/…)`) to fit 16:9.
+The deck renders equations with KaTeX (`$…$`), defines its purple theme in an inline `<style>` block,
+and uses `class:` directives to style title and divider slides. Images use height settings
+such as `![h:500](img/…)` to fit the 16:9 slides.

@@ -75,40 +75,41 @@ section.divider code { background: rgba(255,255,255,.18); color: #fff; }
 
 ## Introduction
 
-- **Vyron Vasileiadis** — Tech Lead at **Qilimanjaro Quantum Tech** · vyron@qilimanjaro.tech
-- **Qilimanjaro** builds **analog quantum computers** and **multimodal data centers** and the software stack to run them.
-- **QiliSDK** is that stack's open-source Python SDK, and your tool today: **digital** *and* **analog** quantum computing in one API along with the C++ **QiliSim** simulator.
+- **Vyron Vasileiadis**, Tech Lead at **Qilimanjaro Quantum Tech** · vyron@qilimanjaro.tech
+- **Qilimanjaro** builds **analog quantum computers**, **multimodal data centers**, and the software to run them.
+- **QiliSDK** is that software stack's open-source Python SDK: **digital** and **analog** quantum computing in one API, along with the C++ **QiliSim** simulator. It is the tool we will use today.
 
 ---
 
 ## Why quantum computing?
 
 - **Simulating molecules and materials** is the most natural fit for a quantum computer, because describing $n$ interacting quantum particles classically needs $2^n$ numbers while a quantum computer holds that state directly.
-- **Combinatorial optimization** problems such as scheduling, routing, and portfolio selection can be rewritten as finding the lowest point of an energy landscape, which is exactly what a quantum annealer is built to minimize.
-- **Machine learning** can use a quantum system as a feature map or sampler, because the probability distributions it produces are rich and hard for a classical computer to reproduce.
-- **True randomness** comes almost for free, because the outcome of a quantum measurement is fundamentally unpredictable rather than produced by a deterministic algorithm.
+- **Combinatorial optimization** problems such as scheduling, routing, and portfolio selection can be rewritten as finding the lowest point of an energy landscape, which is what a quantum annealer is built to seek.
+- **Machine learning** can use a quantum system to transform input data or generate samples, because some quantum probability distributions are hard for a classical computer to reproduce.
+- **True randomness** can come from quantum measurements, whose outcomes are fundamentally unpredictable rather than produced by a deterministic algorithm.
 
 ---
 
 ## Quantum computing in 2026
 
-- **Today's quantum computers are not general-purpose accelerators**, so they will not speed up everyday software or hold large datasets, because a few hundred qubits give only a few hundred classical bits when measured.
-- **The hardware today** is noisy, small, and expensive, yet it is real, running, and improving every year.
-- **A simulator on your laptop** is the practical way to learn, since it is exact and free at the scales this tutorial uses.
-- **The code you write is not throwaway**, because the same program runs unchanged on real hardware once you have access.
+- **Today's quantum computers are not general-purpose accelerators**, so they will not speed up everyday software. Their advantages come from particular ways of solving particular problems.
+- **The hardware today** is noisy, small, and expensive, but it is available for experiments and research.
+- **A simulator on your laptop** is a practical way to learn: it runs the examples in this tutorial without access to a quantum computer.
+- **The circuits you write are useful beyond the simulator.** They describe computations that can be compiled for compatible hardware; we will see how a chip's wiring affects that compilation.
 
 ---
 
-<!-- Schedule slide, commented out — replaced by the Links & QR-codes slide below. Uncomment to restore.
+<!-- Schedule slide, currently replaced by the Links & QR codes slide below. Uncomment to restore.
 ## Schedule
 
 | Part | Topic | Time |
-| - | Introduction and setup check | 10 min |
+|---|---|---|
+| - | Introduction and opening the first notebook | 10 min |
 | 1 | Foundations: qubits, states, measurement, entanglement | 25 min |
 | 2 | Circuits / Digital Quantum Computing, ending with the transpiler | 45 min |
 | - | Wrap-up and questions | 10 min |
 
-90 minutes in total. Times are approximate, we flex with the room.
+90 minutes in total. Adjust the timing to the group’s pace.
 -->
 
 ## Links & QR codes
@@ -135,57 +136,51 @@ section.divider code { background: rgba(255,255,255,.18); color: #fff; }
 
 ## Follow along
 
-**Two ways to run everything, pick one:**
+Choose a notebook environment:
 
-- **Local**: `pip install "qilisdk==0.3.0"` (Python 3.11–3.14), then open the notebooks.
-- **Colab**: every notebook's first cell installs QiliSDK (pinned to `0.3.0`) automatically. Zero local setup.
+- **Local:** install `qilisdk==0.3.0` with pip using Python 3.11–3.14. Follow the main `README.md` for JupyterLab setup.
+- **Google Colab:** use the notebook's installation cell. It installs `qilisdk==0.3.0` if QiliSDK is missing, and leaves an existing installation unchanged.
 
-**Right now:** open and run `notebooks/00_setup.ipynb`.
-If its last cell prints counts like `{'00': ~500, '11': ~500}`, you're ready. ✅
+Open **`notebooks/01_foundations.ipynb`** and run its first two code cells. The first should print `QiliSDK 0.3.0`; both should finish without errors.
 
-> QiliSDK ships its C++ simulator **QiliSim** *inside* the wheel: nothing to compile.
+QiliSDK's prebuilt packages include **QiliSim**, so installing a compatible package requires no compilation.
 
 ---
 
 ## How we'll work
 
-- **Coding-first.** These slides are a map; the real work is in the notebooks.
-- Each part: a short **concept**, a live **code-along**, then **🧩 exercises**, each a small real problem.
-- Notebooks come in two flavors:
-  - `notebooks/…`: **attendee** version (blank `# TODO` cells)
-  - `notebooks/solutions/…`: **completed**, with outputs
-- Every snippet is **verified to run** against `qilisdk 0.3.0`.
-
-> Stuck on an exercise? The solution is one folder away, but try first. 🙂
+- Most of the session takes place in the notebooks. Each part starts with a short explanation, continues with code we write together, and ends with exercises.
+- Use `notebooks/…` to follow along and complete the `# TODO` cells.
+- Completed exercises and saved outputs are in `notebooks/solutions/…`.
+- The examples were verified with **QiliSDK 0.3.0**. Use that version to match the API shown here.
 
 ---
 
 ## What you'll build
 
-- a **loaded quantum coin** whose odds are fixed by physics (Part 1);
-- a **quantum dice roller** — true randomness you can trust (Part 2);
-- a **shared secret for three parties**, made from entanglement (Part 2);
-- a **circuit compiled onto a real chip**, with the cost of its wiring counted (Part 2).
+- A **loaded quantum coin** whose chance of landing on 1 is set to 75% (Part 1).
+- A **quantum dice roller** with an equal chance of each of six faces (Part 2).
+- A **shared random bit for three parties**, so all three receive the same result (Part 2).
+- A circuit **compiled for a chip layout**, with the extra gates counted (Part 2).
 
-Underneath it all: a working feel for qubits, measurement, gates, and circuits.
+These examples connect states, measurement, gates, and circuits. All execution in this session uses a simulator.
 
 ---
 
-## The architecture
+## QiliSDK's architecture
 
+<!-- Read from primitives through functionals to execution backends. The notebook examples use Core, Digital, Readout, and QiliSim; the other branches support later topics. -->
 ![h:500](img/overall.jpg)
 
 ---
 
-## 30 seconds of notation
+## Bra-ket notation
 
-Quantum papers use **bra-ket** syntax: typed labels around vectors you already know from numpy.
+Quantum papers use **bra-ket notation** to write the complex column and row vectors you know from NumPy:
 
-- A **ket** $|\psi\rangle$ (read "ket psi") is a labeled complex **column vector**: $|0\rangle$ is `np.array([[1], [0]])`.
-- A **bra** $\langle\psi|$ is its **conjugate transpose**, a row vector: `psi.conj().T`.
-- Several qubits: $|01\rangle$ is shorthand for $|0\rangle \otimes |1\rangle$, the **tensor product** of the two kets: `np.kron(ket0, ket1)`.
-
-That is every symbol today's math needs.
+- A **ket** $|\psi\rangle$ ("ket psi") is a column vector. The basis states $|0\rangle$ and $|1\rangle$ represent definite 0 and 1 outcomes; $|0\rangle$ is `np.array([[1], [0]])`.
+- A **bra** $\langle\psi|$ is its conjugate transpose, `psi.conj().T`: transpose the vector and conjugate its complex entries.
+- For two qubits, $|01\rangle$ means $|0\rangle \otimes |1\rangle$. The **tensor product** $\otimes$ forms a joint vector by multiplying entries from the two vectors in pairs: `np.kron(ket0, ket1)`.
 
 ---
 
@@ -195,33 +190,34 @@ That is every symbol today's math needs.
 
 # Foundations
 
-### Qubits, superposition, and randomness you can trust
+### Qubits, superposition, and measurement probabilities
 
 ---
 
-## Part 1: the ideas, in plain words
+## Part 1: states and measurement
 
-- A **qubit** is two complex numbers, its **amplitudes**: one weight for $|0\rangle$, one for $|1\rangle$. Think `np.array([a, b])` with unit length.
-- **Measuring** samples one outcome with probability $|\text{amplitude}|^2$ (the **Born rule**) and destroys the superposition. No peeking twice.
-- 2 qubits need 4 amplitudes: one for $|00\rangle$, one for $|01\rangle$, one for $|10\rangle$ and one for $|11\rangle$.
-- $n$ qubits need $2^n$ amplitudes. That **memory wall** is why Feynman proposed quantum computers in the first place.
-- But measurement returns only $n$ classical bits, so algorithms must **engineer interference**: wrong answers cancel, the right one survives.
-
----
-
-## Part 1: the vocabulary and the API
-
-- **Superposition**: several amplitudes nonzero at once. **Phase**: an amplitude's sign or angle, invisible on its own, decisive when paths interfere.
-- **Entanglement**: correlated randomness between qubits that nobody else holds a copy of (the raw material for quantum key distribution).
-- In code: `QTensor` holds states *and* operators.
+- A **qubit's state** is represented here by two complex numbers, its **amplitudes**: one weight for $|0\rangle$, one for $|1\rangle$. Think `np.array([a, b])` with unit length.
+- Measuring in the $|0\rangle$ / $|1\rangle$ basis gives each outcome probability $|\text{amplitude}|^2$ (the **Born rule**) and leaves the qubit in that basis state.
+- Two qubits have four amplitudes, for $|00\rangle$, $|01\rangle$, $|10\rangle$, and $|11\rangle$; $n$ qubits have $2^n$.
+- Measurement returns one $n$-bit outcome. **Interference**, the addition and cancellation of amplitudes, changes which outcomes are likely.
 
 ---
 
-## `QTensor`: the math object behind it all
+## Part 1: superposition and entanglement
+
+- **Superposition:** more than one basis state has a nonzero amplitude.
+- **Relative phase:** the difference between the angles of complex amplitudes. It affects how amplitudes combine during interference.
+- **Entanglement:** a joint state that cannot be described by assigning an independent state to each qubit. Our two-qubit example produces matching random bits when measured.
+- **`QTensor`** represents both states and operators, the matrices that act on states.
+
+---
+
+## `QTensor`: states and operators
 
 ![h:480](img/qtensor.jpg)
 
-<!-- <p class="cap">Standard matrix ops · state factories (<code>ket</code>, <code>ghz</code>, <code>uniform</code>, …) · quantum-information primitives (partial trace, entropy, fidelity).</p> -->
+<!-- The notebook uses state constructors, matrix operations, and probabilities. Partial trace, entropy, and fidelity are tools for further study. -->
+<!-- Artwork review: img/qtensor.jpg labels von Neumann entropy as "Von Neuman". Correct the spelling in the source artwork when available; this repository contains only the raster image. -->
 
 ---
 
@@ -231,60 +227,58 @@ That is every symbol today's math needs.
 
 # Circuits & Digital Quantum Computing
 
-### Interference, a quantum dice roller, and compiling for a real chip
+### Interference, a dice roller, and compiling for a chip layout
 
 ---
 
-## Part 2: the ideas, in plain words
+## Part 2: gates and circuits
 
-- **Gates** are reversible matrix operations on the amplitude vector: the Hadamard gate $H$ creates superposition, the controlled-NOT (**CNOT**) entangles two qubits.
-- A **circuit** is a program: an ordered list of gates applied to a fresh register of qubits.
-- **Measurement** ends the program and hands back plain classical bits.
-- **Sampling** repeats the whole measurement **nshots** times and averages the outcomes into a distribution; more shots pull it toward the exact answer. A simulator can give you both.
+- **Gates** are reversible matrix operations. Hadamard ($H$) creates superposition from $|0\rangle$; controlled-NOT (**CNOT**) can then entangle it with a second qubit.
+- A **circuit** is an ordered sequence of operations on qubits. These examples start with every qubit in $|0\rangle$.
+- **Measurement** returns classical bits at the end of these circuits.
+- A **shot** represents one preparation and measurement. Sampling `nshots` times gives counts whose relative frequencies approach the ideal probabilities as the sample grows.
 
 ---
 
-## Part 2: the one execution pattern
+## Part 2: executing a circuit
+
+- **Functional:** what to run. `DigitalPropagation(circuit)` wraps a circuit so a backend can execute it.
+- **Backend:** where to run it. We use the `QiliSim` simulator.
+- **Readout:** what to collect, such as samples or state information. Supported readouts depend on the backend.
 
 $$\texttt{Backend.execute(functional, readout)} \rightarrow \texttt{Result}$$
 
-- **Functional** = *what* to run: `DigitalPropagation(circuit)` wraps your circuit.
-- **Backend** = *where* to run: `QiliSim`, the built-in simulator. **Readout** = *what to measure*: samples, expectation values, or the exact state.
-- A bare `Circuit` never executes. The wrapper keeps *what* cleanly separate from *where*.
-- **One call, every backend.** The same three-part call runs on the simulator now and a real QPU later — you swap only the `Backend`.
+This separates the circuit's description from its execution: you build the circuit, choose a compatible backend, and request the results you need.
 
 ---
 
 ## Part 2: from circuit to chip
 
-- The **transpiler is a compiler**: instruction selection (your gates → the chip's native set) plus register allocation (your qubits → physical qubits).
-- Real chips run only a small **native gate set** and connect only *some* qubit pairs, so an abstract circuit rarely fits as written.
-- **SABRE** (SWAP-based Bidirectional heuristic search), a routing pass used by production compilers, inserts SWAPs so every two-qubit gate lands on physically connected qubits.
-- Transpiling *multiplies* the gate count, and every extra gate is one more chance for noise to spoil the answer: the bridge from a clean circuit to a runnable one.
+- A chip's **native gate set** lists its available operations; its **coupling map** lists connected qubit pairs.
+- The **transpiler** is a compiler: it translates your gates into the chip's instructions and maps your circuit's qubits onto physical qubits.
+- **SABRE** is the routing heuristic used here. It inserts **SWAP** operations to exchange qubit states until the required pairs can interact.
+- Every extra gate is another opportunity for an error. Comparing a line and a ring of four qubits shows how better connectivity can reduce the number of gates needed.
 
 ---
 
-## The journey
+## What the examples connect
 
-**Loaded coin** → **dice roller** → **shared secret** → **compiled circuit**
+**Loaded coin** → **dice roller** → **shared random bit** → **compiled circuit**
 
-A small set of primitives, composed and executed uniformly:
+`QTensor` describes states and operators. `Circuit` describes operations, and `DigitalPropagation` wraps a circuit for execution. `Readout` selects the results collected by a backend such as `QiliSim`.
 
-`QTensor` · `Circuit` · `Readout`
- → wrapped in a **Functional** (`DigitalPropagation`) → run by a swappable **Backend** (`QiliSim`).
-
-> Every circuit today ran through one call: `backend.execute(functional, readout)`.
+Compiling the QFT, a **quantum Fourier transform** circuit, shows how the chip's wiring changes the gate count without changing the intended computation.
 
 ---
 
 ## Going further
 
-The **3-hour version** of this tutorial (EuroPython 2026) picks up where we stop:
+The **3-hour EuroPython 2026 tutorial** continues with:
 
-- **Analog** quantum computing: Hamiltonians, and scheduling talks by quantum annealing;
-- **Variational algorithms**: a molecule's ground-state energy (VQE) and a quantum optimizer (QAOA);
-- **Noise**: why real answers degrade, and how much gate error an answer survives;
-- **Execution**: swapping backends, exporting circuits, and a quantum-reservoir forecaster.
+- **Analog computing:** describing a system's energy with a Hamiltonian, then using quantum annealing to schedule conference talks.
+- **Variational algorithms:** finding a molecule's lowest-energy state with the variational quantum eigensolver (**VQE**) and solving optimization problems with the quantum approximate optimization algorithm (**QAOA**).
+- **Noise:** how gate errors affect answers, and how much error a calculation can tolerate.
+- **Execution:** swapping backends, exporting circuits, and building a forecaster that uses a quantum system to process a sequence of inputs.
 
 [github.com/qilimanjaro-tech/europython2026-qilisdk-tutorial](https://github.com/qilimanjaro-tech/europython2026-qilisdk-tutorial)
 
