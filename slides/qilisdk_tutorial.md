@@ -75,79 +75,6 @@ section.divider code { background: rgba(255,255,255,.18); color: #fff; }
 
 ---
 
-## Introduction
-
-- **Vyron Vasileiadis**, Tech Lead at **Qilimanjaro Quantum Tech** · vyron@qilimanjaro.tech
-- **Qilimanjaro** builds **analog quantum computers**, **multimodal data centers**, and the software to run them.
-- **QiliSDK** is that software stack's open-source Python SDK: **digital** and **analog** quantum computing in one API, along with the C++ **QiliSim** simulator. It is the tool we will use today.
-
----
-
-## What is quantum computing?
-
-<div class="center">
-
-![h:320](img/bit-vs-qubit.svg)
-
-</div>
-
-- Quantum computing uses quantum-mechanical effects to store and process information.
-- Its unit is the **qubit**, which holds two **amplitudes**, α for 0 and β for 1. Measuring it gives a single bit, with probabilities set by the amplitudes.
-- A quantum computer does not try every answer at once. Algorithms use **interference** to make the amplitudes of wrong answers cancel before the measurement.
-
-<!-- A qubit is any physical system with two states we can tell apart and control: two energy levels of a superconducting circuit cooled close to absolute zero (what Qilimanjaro builds), a trapped ion or atom, or a photon's polarization. Say it plainly: a qubit is not "0 and 1 at the same time"; it has an amplitude for each, and reading it gives one bit. -->
-
----
-
-## Digital and analog
-
-<div class="center">
-
-![h:300](img/digital-vs-analog.svg)
-
-</div>
-
-- **Digital:** a program is a sequence of gates on chosen qubits, like instructions on a CPU. Today's session is digital.
-- **Analog:** the qubits' energy, described by a **Hamiltonian**, changes smoothly over time, and we measure where the system ends up. Quantum annealing works this way, and so do Qilimanjaro's analog machines. QiliSDK programs both.
-
----
-
-## Why quantum computing?
-
-- **Simulating molecules and materials** is the most natural fit: the exact state of $n$ interacting two-state particles takes $2^n$ numbers to store classically, while $n$ qubits hold it physically.
-- **Combinatorial optimization** problems such as scheduling and routing can be rewritten as finding the lowest point of an energy landscape, which a quantum annealer is built to seek.
-- **Machine learning:** circuits with trainable parameters can serve as models, much like small neural networks, and a quantum system can process time series (reservoir computing).
-- **Cryptography:** Shor's algorithm on a large error-corrected quantum computer would break RSA and elliptic-curve keys, so post-quantum standards are already being deployed.
-- **True randomness** comes from quantum measurements, whose outcomes no algorithm can predict. Small quantum random number generators are already sold as products.
-
-<!-- Simulation: classical approximations work well for many molecules; the hard cases are strongly correlated ones, such as some catalysts and magnetic materials. Machine learning: other directions are quantum kernels and generative models; the clearest proven gains are for data that is already quantum, from experiments or sensors, and whether quantum models beat classical ones on everyday data is still open. Cryptography: current estimates put RSA-2048 at under a million physical qubits (Gidney, 2025); the most accurate gate-based machines today have about 100-160. NIST published the first post-quantum standards in 2024, and OpenSSL 3.5 uses a hybrid ML-KEM key exchange by default when the server supports it. Grover's search gives only a square-root speedup, so larger symmetric keys stay safe. Randomness: in 2025 a 56-qubit quantum computer produced random bits that classical supercomputers then certified as freshly generated. -->
-
----
-
-## Quantum computing in 2026
-
-- **Today's quantum computers are not general-purpose accelerators**, so they will not speed up everyday software. They have beaten classical computers on purpose-built tasks; claims of an advantage on a practical problem are still disputed.
-- **The hardware today** is small and noisy. Qubits are physical systems, such as superconducting circuits cooled close to absolute zero, and they lose their state to their surroundings. Even good two-qubit gates fail about once in a few hundred to a few thousand operations.
-- **A simulator on your laptop** runs this tutorial's examples: 16 GB of RAM holds the state of about 29 qubits, and each extra qubit doubles the memory needed.
-- **The circuits you write are useful beyond the simulator.** They can be compiled for real hardware; we will see how a chip's wiring affects that compilation.
-
-<!-- Error correction spreads one reliable qubit over many physical ones. It works in experiments, but not yet at the scale that useful algorithms such as Shor's need. The most accurate gate-based machines have about 100-160 physical qubits; annealers have a few thousand. -->
-
----
-
-<!-- Schedule slide, currently replaced by the Links & QR codes slide below. Uncomment to restore.
-## Schedule
-
-| Part | Topic | Time |
-|---|---|---|
-| - | Introduction and opening the first notebook | 10 min |
-| 1 | Foundations: qubits, states, measurement, entanglement | 25 min |
-| 2 | Circuits / Digital Quantum Computing, ending with the transpiler | 45 min |
-| - | Wrap-up and questions | 10 min |
-
-90 minutes in total. Adjust the timing to the group’s pace.
--->
-
 ## Links & QR codes
 
 <div class="qrgrid">
@@ -169,6 +96,79 @@ section.divider code { background: rgba(255,255,255,.18); color: #fff; }
 </div>
 
 ---
+
+## Introduction
+
+- **Vyron Vasileiadis**, Tech Lead at **Qilimanjaro Quantum Tech** · vyron@qilimanjaro.tech
+- **Qilimanjaro** builds **analog quantum computers**, **multimodal data centers**, and the software to run them.
+- **QiliSDK** is that software stack's open-source Python SDK: **digital** and **analog** quantum computing in one API, along with the C++ **QiliSim** simulator. It is the tool we will use today.
+
+---
+
+## What is quantum computing?
+
+<div class="center">
+
+![h:320](img/bit-vs-qubit.svg)
+
+</div>
+
+- Quantum computing uses quantum-mechanical effects to store and process information.
+- Its unit is the **qubit**, which holds two **amplitudes**, α for 0 and β for 1. Measuring it gives a single bit, with probabilities set by the amplitudes.
+- A qubit is any physical system with two states we can tell apart and control: two energy levels of a superconducting circuit cooled close to absolute zero, a trapped ion or atom, or a photon's polarization.
+
+<!-- A qubit is any physical system with two states we can tell apart and control: two energy levels of a superconducting circuit cooled close to absolute zero (what Qilimanjaro builds), a trapped ion or atom, or a photon's polarization. Say it plainly: a qubit is not "0 and 1 at the same time"; it has an amplitude for each, and reading it gives one bit. -->
+
+---
+
+## Why quantum computing?
+
+- **Simulating molecules and materials** is the most natural fit: the exact state of $n$ interacting two-state particles takes $2^n$ numbers to store classically, while $n$ qubits hold it physically.
+- **Combinatorial optimization** problems such as scheduling and routing can be rewritten as finding the lowest point of an energy landscape, which a quantum annealer is built to seek.
+- **Machine learning:** circuits with trainable parameters can serve as models, much like small neural networks, and a quantum system can process time series (reservoir computing).
+- **Cryptography:** Shor's algorithm on a large error-corrected quantum computer would break RSA and elliptic-curve keys, so post-quantum standards are already being deployed.
+- **True randomness** comes from quantum measurements, whose outcomes no algorithm can predict. Small quantum random number generators are already sold as products.
+
+<!-- Simulation: classical approximations work well for many molecules; the hard cases are strongly correlated ones, such as some catalysts and magnetic materials. Machine learning: other directions are quantum kernels and generative models; the clearest proven gains are for data that is already quantum, from experiments or sensors, and whether quantum models beat classical ones on everyday data is still open. Cryptography: current estimates put RSA-2048 at under a million physical qubits (Gidney, 2025); the most accurate gate-based machines today have about 100-160. NIST published the first post-quantum standards in 2024, and OpenSSL 3.5 uses a hybrid ML-KEM key exchange by default when the server supports it. Grover's search gives only a square-root speedup, so larger symmetric keys stay safe. Randomness: in 2025 a 56-qubit quantum computer produced random bits that classical supercomputers then certified as freshly generated. -->
+
+---
+
+## Quantum computing in 2026
+
+- **Today's quantum computers are not general-purpose accelerators**, so they will not speed up everyday software. They have beaten classical computers on purpose-built tasks; claims of an advantage on a practical problem are still disputed.
+- **The hardware today** is small and noisy. Qubits are physical systems and they lose their state to their surroundings. Even good two-qubit gates fail about once in a few hundred to a few thousand operations.
+- **A simulator on your laptop** runs this tutorial's examples: 16 GB of RAM holds the state of about 29 qubits, and each extra qubit doubles the memory needed.
+
+<!-- Error correction spreads one reliable qubit over many physical ones. It works in experiments, but not yet at the scale that useful algorithms such as Shor's need. The most accurate gate-based machines have about 100-160 physical qubits; annealers have a few thousand. -->
+
+---
+
+## Digital and analog paradigm
+
+<div class="center">
+
+![h:300](img/digital-vs-analog.svg)
+
+</div>
+
+- **Digital:** a program is a sequence of gates on chosen qubits, like instructions on a CPU. Today's session is digital.
+- **Analog:** the qubits' energy, described by a **Hamiltonian**, changes smoothly over time, and we measure where the system ends up.
+- QiliSDK supports both.
+
+---
+
+<!-- Schedule slide, currently replaced by the Links & QR codes slide below. Uncomment to restore.
+## Schedule
+
+| Part | Topic | Time |
+|---|---|---|
+| - | Introduction and opening the first notebook | 10 min |
+| 1 | Foundations: qubits, states, measurement, entanglement | 25 min |
+| 2 | Circuits / Digital Quantum Computing, ending with the transpiler | 45 min |
+| - | Wrap-up and questions | 10 min |
+
+90 minutes in total. Adjust the timing to the group’s pace.
+-->
 
 ## Follow along
 
