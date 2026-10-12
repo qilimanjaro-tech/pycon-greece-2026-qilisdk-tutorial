@@ -12,7 +12,7 @@ This is a shorter version of the [EuroPython 2026 tutorial](https://github.com/q
 | [`notebooks/`](notebooks/) | Two tutorial notebooks (`01_foundations`, `02_circuits`) with exercises for attendees to complete. |
 | [`notebooks/solutions/`](notebooks/solutions/) | The same notebooks with exercises solved and outputs included. |
 | [`slides/`](slides/) | The Marp slide deck (`qilisdk_tutorial.md`, pre-rendered `qilisdk_tutorial.html`) and its diagrams in `slides/img/`. |
-| [`scripts/embed_diagrams.py`](scripts/embed_diagrams.py) | Copies the SVG diagrams from `slides/img/` into the notebooks, which embed them so they work in Colab. Run it after editing a diagram. |
+| [`scripts/embed_diagrams.py`](scripts/embed_diagrams.py) | Renders the SVG diagrams from `slides/img/` to PNG and embeds them in the notebooks, so they work in Colab and VS Code. Run it after editing a diagram (needs Inkscape). |
 
 ## Setup
 

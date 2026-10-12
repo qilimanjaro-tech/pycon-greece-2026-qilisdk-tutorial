@@ -294,9 +294,9 @@ Quantum papers use **bra-ket notation** to write the complex column and row vect
 
 ![h:420](img/qtensor.jpg)
 
-Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, and `.probabilities()`; the other tools are for further study.
+Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, `.probabilities()`, and `.sample()`; the other tools are for further study.
 
-<!-- The notebook uses state constructors, matrix operations, and probabilities. Partial trace, entropy, and fidelity are tools for further study. -->
+<!-- The notebook uses state constructors, matrix operations, probabilities, and sampling. Partial trace, entropy, and fidelity are tools for further study. -->
 <!-- Artwork review: img/qtensor.jpg reads "Von Neuman" (von Neumann) and "Basic State" (Basis State; the API is basis_state). Correct both in the source artwork when available; this repository contains only the raster image. -->
 
 ---

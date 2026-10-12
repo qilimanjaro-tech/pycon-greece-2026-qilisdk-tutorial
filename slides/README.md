@@ -6,7 +6,7 @@ the tutorial, explain the main concepts with small diagrams, show the QiliSDK ar
 
 - `qilisdk_tutorial.md`: the deck source (edit this).
 - `qilisdk_tutorial.html`: the rendered deck; it loads images from the adjacent `img/` folder. Re-render it after editing the Markdown source.
-- `img/`: the SVG diagrams used by the slides and notebooks, the two QiliSDK overview images (`overall.jpg`, `qtensor.jpg`), and the QR codes for this tutorial's repository, the QiliSDK source, and the docs. The notebooks embed copies of the SVGs so they work in Colab; after editing one, run `python scripts/embed_diagrams.py` from the repository root to refresh them.
+- `img/`: the SVG diagrams used by the slides and notebooks, the two QiliSDK overview images (`overall.jpg`, `qtensor.jpg`), and the QR codes for this tutorial's repository, the QiliSDK source, and the docs. The notebooks embed PNG copies of the SVGs so they work in Colab and VS Code; after editing one, run `python scripts/embed_diagrams.py` from the repository root to refresh them (it needs Inkscape).
 
 ## Present / edit
 
