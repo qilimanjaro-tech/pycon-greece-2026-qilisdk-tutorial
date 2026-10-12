@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400">
+  <rect width="1280" height="400" fill="#ffffff"/>
+  <g font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+
+    <g fill="#f0ecfc">
+      <rect x="20" y="20" width="780" height="152" rx="24"/>
+      <rect x="20" y="228" width="780" height="152" rx="24"/>
+      <rect x="920" y="20" width="340" height="152" rx="24"/>
+      <rect x="920" y="228" width="340" height="152" rx="24"/>
+    </g>
+
+    <g font-size="36" font-weight="700" fill="#6c4cf1" letter-spacing="1" text-anchor="middle">
+      <text x="410" y="70">FUNCTIONAL</text>
+      <text x="410" y="278">READOUT</text>
+      <text x="1090" y="70">BACKEND</text>
+      <text x="1090" y="278">RESULT</text>
+    </g>
+
+    <g fill="#ffffff">
+      <rect x="44" y="90" width="732" height="60" rx="30"/>
+      <rect x="44" y="298" width="732" height="60" rx="30"/>
+      <rect x="944" y="90" width="292" height="60" rx="30"/>
+      <rect x="944" y="298" width="292" height="60" rx="30"/>
+    </g>
+
+    <g font-family="ui-monospace, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="36" fill="#1c1c2e" text-anchor="middle">
+      <text x="410" y="133">DigitalPropagation(quantum_not)</text>
+      <text x="410" y="341">.with_sampling(nshots=1000)</text>
+      <text x="1090" y="133">QiliSim()</text>
+      <text x="1090" y="341">{'1': 1000}</text>
+    </g>
+
+    <g stroke="#6c4cf1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M812,120 H890"/>
+      <path d="M812,328 H830 A16,16 0 0 0 846,312 V136 A16,16 0 0 1 862,120"/>
+      <path d="M1090,184 V198"/>
+    </g>
+    <g fill="#6c4cf1">
+      <path d="M908,120 L890,112 L890,128 Z"/>
+      <path d="M1090,216 L1082,198 L1098,198 Z"/>
+    </g>
+
+  </g>
+</svg>

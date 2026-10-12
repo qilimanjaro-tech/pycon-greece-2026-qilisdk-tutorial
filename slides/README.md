@@ -1,12 +1,12 @@
 # Slides: *Learn Quantum Computing with QiliSDK*
 
 These slides use [Marp](https://marp.app/), which renders Markdown as a presentation. They introduce
-the tutorial, explain the main concepts, show the QiliSDK architecture and `QTensor` diagrams, and
-point to further material. The worked examples and exercises are in `notebooks/`.
+the tutorial, explain the main concepts with small diagrams, show the QiliSDK architecture and
+`QTensor` overviews, and point to further material. The worked examples and exercises are in `notebooks/`.
 
 - `qilisdk_tutorial.md`: the deck source (edit this).
 - `qilisdk_tutorial.html`: the rendered deck; it loads images from the adjacent `img/` folder. Re-render it after editing the Markdown source.
-- `img/`: the two diagrams (`overall.jpg`, `qtensor.jpg`) and the QR codes for this tutorial's repository, the QiliSDK source, and the docs.
+- `img/`: the SVG diagrams used by the slides and notebooks, the two QiliSDK overview images (`overall.jpg`, `qtensor.jpg`), and the QR codes for this tutorial's repository, the QiliSDK source, and the docs. The notebooks embed copies of the SVGs so they work in Colab; after editing one, run `python scripts/embed_diagrams.py` from the repository root to refresh them.
 
 ## Present / edit
 
@@ -22,11 +22,11 @@ With Node.js and npm installed, run the commands below from the repository root.
 cd slides
 
 # HTML (no browser needed)
-npx @marp-team/marp-cli@latest qilisdk_tutorial.md --html -o qilisdk_tutorial.html
+npx @marp-team/marp-cli@4.5.1 qilisdk_tutorial.md --html -o qilisdk_tutorial.html
 
 # PDF or PPTX (needs a local Chrome/Chromium; --allow-local-files lets it read img/)
-npx @marp-team/marp-cli@latest qilisdk_tutorial.md --pdf  --allow-local-files
-npx @marp-team/marp-cli@latest qilisdk_tutorial.md --pptx --allow-local-files
+npx @marp-team/marp-cli@4.5.1 qilisdk_tutorial.md --pdf  --allow-local-files
+npx @marp-team/marp-cli@4.5.1 qilisdk_tutorial.md --pptx --allow-local-files
 ```
 
 The deck renders equations with KaTeX (`$…$`), defines its purple theme in an inline `<style>` block,

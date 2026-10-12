@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 440" width="1280" height="440">
+  <rect width="1280" height="440" fill="#ffffff"/>
+  <g font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+
+    <g font-size="30" fill="#6c4cf1" text-anchor="middle">
+      <text x="135" y="56">amplitudes</text>
+      <text x="414" y="56">probabilities</text>
+      <text x="747" y="56">shots</text>
+      <text x="1124" y="56">counts</text>
+    </g>
+
+    <g font-size="40" fill="#1c1c2e">
+      <text x="36" y="179">|0⟩</text>
+      <text x="36" y="319">|1⟩</text>
+    </g>
+
+    <g fill="#f0ecfc">
+      <rect x="115" y="135" width="118" height="60" rx="30"/>
+      <rect x="115" y="275" width="118" height="60" rx="30"/>
+      <rect x="355" y="135" width="118" height="60" rx="30"/>
+      <rect x="355" y="275" width="118" height="60" rx="30"/>
+    </g>
+    <g font-size="36" fill="#1c1c2e" text-anchor="middle">
+      <text x="174" y="178">√3/2</text>
+      <text x="174" y="318">1/2</text>
+      <text x="414" y="178">3/4</text>
+      <text x="414" y="318">1/4</text>
+    </g>
+
+    <g stroke="#6c4cf1" stroke-width="4" stroke-linecap="round" fill="none">
+      <path d="M252,235 H312"/>
+      <path d="M494,235 H598"/>
+      <path d="M927,235 H970"/>
+    </g>
+    <g fill="#6c4cf1">
+      <path d="M330,235 L312,227 L312,243 Z"/>
+      <path d="M616,235 L598,227 L598,243 Z"/>
+      <path d="M988,235 L970,227 L970,243 Z"/>
+    </g>
+    <g font-size="30" fill="#6c4cf1" text-anchor="middle">
+      <text x="291" y="219" font-size="36">|·|²</text>
+      <text x="555" y="219">measure</text>
+    </g>
+
+    <g fill="#f0ecfc">
+      <rect x="636" y="167" width="48" height="60" rx="10"/>
+      <rect x="694" y="167" width="48" height="60" rx="10"/>
+      <rect x="752" y="167" width="48" height="60" rx="10"/>
+      <rect x="810" y="167" width="48" height="60" rx="10"/>
+      <rect x="636" y="241" width="48" height="60" rx="10"/>
+      <rect x="694" y="241" width="48" height="60" rx="10"/>
+      <rect x="752" y="241" width="48" height="60" rx="10"/>
+      <rect x="810" y="241" width="48" height="60" rx="10"/>
+    </g>
+    <g font-size="36" fill="#1c1c2e" text-anchor="middle">
+      <text x="660" y="210">0</text>
+      <text x="718" y="210">1</text>
+      <text x="776" y="210">0</text>
+      <text x="834" y="210">0</text>
+      <text x="660" y="284">0</text>
+      <text x="718" y="284">0</text>
+      <text x="776" y="284">0</text>
+      <text x="834" y="284">1</text>
+    </g>
+    <g fill="#6c4cf1">
+      <circle cx="872" cy="271" r="5"/>
+      <circle cx="888" cy="271" r="5"/>
+      <circle cx="904" cy="271" r="5"/>
+    </g>
+
+    <g fill="#6c4cf1">
+      <path d="M1024,375 V143 A8,8 0 0 1 1032,135 H1086 A8,8 0 0 1 1094,143 V375 Z"/>
+      <path d="M1154,375 V303 A8,8 0 0 1 1162,295 H1216 A8,8 0 0 1 1224,303 V375 Z"/>
+    </g>
+    <path d="M1008,375 H1240" stroke="#1c1c2e" stroke-width="3" stroke-linecap="round"/>
+    <g font-size="36" fill="#1c1c2e" text-anchor="middle">
+      <text x="1059" y="121">≈750</text>
+      <text x="1189" y="281">≈250</text>
+      <text x="1059" y="415">0</text>
+      <text x="1189" y="415">1</text>
+    </g>
+
+  </g>
+</svg>

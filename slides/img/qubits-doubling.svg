@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 440" width="1280" height="440">
+  <rect width="1280" height="440" fill="#ffffff"/>
+  <g font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+
+    <g font-size="30" fill="#6c4cf1" text-anchor="middle">
+      <text x="70" y="44">qubits</text>
+      <text x="1175" y="44">amplitudes</text>
+    </g>
+
+    <g font-size="40" font-weight="700" fill="#1c1c2e" text-anchor="middle">
+      <text x="70" y="124">1</text>
+      <text x="70" y="209">2</text>
+      <text x="70" y="294">3</text>
+      <text x="70" y="394">n</text>
+    </g>
+
+    <g fill="#f0ecfc">
+      <rect x="497" y="80" width="118" height="60" rx="30"/>
+      <rect x="625" y="80" width="118" height="60" rx="30"/>
+
+      <rect x="369" y="165" width="118" height="60" rx="30"/>
+      <rect x="497" y="165" width="118" height="60" rx="30"/>
+      <rect x="625" y="165" width="118" height="60" rx="30"/>
+      <rect x="753" y="165" width="118" height="60" rx="30"/>
+
+      <rect x="113" y="250" width="118" height="60" rx="30"/>
+      <rect x="241" y="250" width="118" height="60" rx="30"/>
+      <rect x="369" y="250" width="118" height="60" rx="30"/>
+      <rect x="497" y="250" width="118" height="60" rx="30"/>
+      <rect x="625" y="250" width="118" height="60" rx="30"/>
+      <rect x="753" y="250" width="118" height="60" rx="30"/>
+      <rect x="881" y="250" width="118" height="60" rx="30"/>
+      <rect x="1009" y="250" width="118" height="60" rx="30"/>
+
+      <rect x="425" y="350" width="150" height="60" rx="30"/>
+      <rect x="665" y="350" width="150" height="60" rx="30"/>
+    </g>
+
+    <g font-size="36" fill="#1c1c2e" text-anchor="middle">
+      <text x="556" y="123">|0⟩</text>
+      <text x="684" y="123">|1⟩</text>
+
+      <text x="428" y="208">|00⟩</text>
+      <text x="556" y="208">|01⟩</text>
+      <text x="684" y="208">|10⟩</text>
+      <text x="812" y="208">|11⟩</text>
+
+      <text x="172" y="293">|000⟩</text>
+      <text x="300" y="293">|001⟩</text>
+      <text x="428" y="293">|010⟩</text>
+      <text x="556" y="293">|011⟩</text>
+      <text x="684" y="293">|100⟩</text>
+      <text x="812" y="293">|101⟩</text>
+      <text x="940" y="293">|110⟩</text>
+      <text x="1068" y="293">|111⟩</text>
+
+      <text x="500" y="393">|00…0⟩</text>
+      <text x="740" y="393">|11…1⟩</text>
+    </g>
+
+    <g fill="#6c4cf1">
+      <circle cx="604" cy="380" r="5"/>
+      <circle cx="620" cy="380" r="5"/>
+      <circle cx="636" cy="380" r="5"/>
+    </g>
+
+    <g font-size="40" font-weight="700" fill="#6c4cf1" text-anchor="middle">
+      <text x="1175" y="124">2</text>
+      <text x="1175" y="209">4</text>
+      <text x="1175" y="294">8</text>
+      <text x="1175" y="394">2ⁿ</text>
+    </g>
+
+  </g>
+</svg>

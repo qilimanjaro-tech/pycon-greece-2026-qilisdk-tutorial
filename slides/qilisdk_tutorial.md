@@ -53,6 +53,8 @@ section.divider code { background: rgba(255,255,255,.18); color: #fff; }
 
 .cap { font-size: 0.72em; color: #6a6a82; text-align: center; margin-top: 6px; }
 .center { text-align: center; }
+.center p { margin: 0 0 8px; }
+.center img { vertical-align: top; }
 .small { font-size: 0.82em; }
 
 .qrgrid { display: flex; gap: 40px; justify-content: center; align-items: flex-start; margin-top: 28px; }
@@ -81,21 +83,55 @@ section.divider code { background: rgba(255,255,255,.18); color: #fff; }
 
 ---
 
+## What is quantum computing?
+
+<div class="center">
+
+![h:320](img/bit-vs-qubit.svg)
+
+</div>
+
+- Quantum computing uses quantum-mechanical effects to store and process information.
+- Its unit is the **qubit**, which holds two **amplitudes**, α for 0 and β for 1. Measuring it gives a single bit, with probabilities set by the amplitudes.
+- A quantum computer does not try every answer at once. Algorithms use **interference** to make the amplitudes of wrong answers cancel before the measurement.
+
+<!-- A qubit is any physical system with two states we can tell apart and control: two energy levels of a superconducting circuit cooled close to absolute zero (what Qilimanjaro builds), a trapped ion or atom, or a photon's polarization. Say it plainly: a qubit is not "0 and 1 at the same time"; it has an amplitude for each, and reading it gives one bit. -->
+
+---
+
+## Digital and analog
+
+<div class="center">
+
+![h:300](img/digital-vs-analog.svg)
+
+</div>
+
+- **Digital:** a program is a sequence of gates on chosen qubits, like instructions on a CPU. Today's session is digital.
+- **Analog:** the qubits' energy, described by a **Hamiltonian**, changes smoothly over time, and we measure where the system ends up. Quantum annealing works this way, and so do Qilimanjaro's analog machines. QiliSDK programs both.
+
+---
+
 ## Why quantum computing?
 
-- **Simulating molecules and materials** is the most natural fit for a quantum computer, because describing $n$ interacting quantum particles classically needs $2^n$ numbers while a quantum computer holds that state directly.
-- **Combinatorial optimization** problems such as scheduling, routing, and portfolio selection can be rewritten as finding the lowest point of an energy landscape, which is what a quantum annealer is built to seek.
-- **Machine learning** can use a quantum system to transform input data or generate samples, because some quantum probability distributions are hard for a classical computer to reproduce.
-- **True randomness** can come from quantum measurements, whose outcomes are fundamentally unpredictable rather than produced by a deterministic algorithm.
+- **Simulating molecules and materials** is the most natural fit: the exact state of $n$ interacting two-state particles takes $2^n$ numbers to store classically, while $n$ qubits hold it physically.
+- **Combinatorial optimization** problems such as scheduling and routing can be rewritten as finding the lowest point of an energy landscape, which a quantum annealer is built to seek.
+- **Machine learning:** circuits with trainable parameters can serve as models, much like small neural networks, and a quantum system can process time series (reservoir computing).
+- **Cryptography:** Shor's algorithm on a large error-corrected quantum computer would break RSA and elliptic-curve keys, so post-quantum standards are already being deployed.
+- **True randomness** comes from quantum measurements, whose outcomes no algorithm can predict. Small quantum random number generators are already sold as products.
+
+<!-- Simulation: classical approximations work well for many molecules; the hard cases are strongly correlated ones, such as some catalysts and magnetic materials. Machine learning: other directions are quantum kernels and generative models; the clearest proven gains are for data that is already quantum, from experiments or sensors, and whether quantum models beat classical ones on everyday data is still open. Cryptography: current estimates put RSA-2048 at under a million physical qubits (Gidney, 2025); the most accurate gate-based machines today have about 100-160. NIST published the first post-quantum standards in 2024, and OpenSSL 3.5 uses a hybrid ML-KEM key exchange by default when the server supports it. Grover's search gives only a square-root speedup, so larger symmetric keys stay safe. Randomness: in 2025 a 56-qubit quantum computer produced random bits that classical supercomputers then certified as freshly generated. -->
 
 ---
 
 ## Quantum computing in 2026
 
-- **Today's quantum computers are not general-purpose accelerators**, so they will not speed up everyday software. Their advantages come from particular ways of solving particular problems.
-- **The hardware today** is noisy, small, and expensive, but it is available for experiments and research.
-- **A simulator on your laptop** is a practical way to learn: it runs the examples in this tutorial without access to a quantum computer.
-- **The circuits you write are useful beyond the simulator.** They describe computations that can be compiled for compatible hardware; we will see how a chip's wiring affects that compilation.
+- **Today's quantum computers are not general-purpose accelerators**, so they will not speed up everyday software. They have beaten classical computers on purpose-built tasks; claims of an advantage on a practical problem are still disputed.
+- **The hardware today** is small and noisy. Qubits are physical systems, such as superconducting circuits cooled close to absolute zero, and they lose their state to their surroundings. Even good two-qubit gates fail about once in a few hundred to a few thousand operations.
+- **A simulator on your laptop** runs this tutorial's examples: 16 GB of RAM holds the state of about 29 qubits, and each extra qubit doubles the memory needed.
+- **The circuits you write are useful beyond the simulator.** They can be compiled for real hardware; we will see how a chip's wiring affects that compilation.
+
+<!-- Error correction spreads one reliable qubit over many physical ones. It works in experiments, but not yet at the scale that useful algorithms such as Shor's need. The most accurate gate-based machines have about 100-160 physical qubits; annealers have a few thousand. -->
 
 ---
 
@@ -145,6 +181,8 @@ Open **`notebooks/01_foundations.ipynb`** and run its first two code cells. The 
 
 QiliSDK's prebuilt packages include **QiliSim**, so installing a compatible package requires no compilation.
 
+Start now: the installation can run while we go through the next slides.
+
 ---
 
 ## How we'll work
@@ -169,8 +207,11 @@ These examples connect states, measurement, gates, and circuits. All execution i
 
 ## QiliSDK's architecture
 
-<!-- Read from primitives through functionals to execution backends. The notebook examples use Core, Digital, Readout, and QiliSim; the other branches support later topics. -->
-![h:500](img/overall.jpg)
+<!-- Read from primitives through functionals to execution backends. The notebook examples use Core, Digital, Functionals, Readout, and QiliSim; the other branches support later topics. -->
+<!-- Artwork review: img/overall.jpg reads "Linblade Generator" (Lindblad), "Cuda Backend" (the class is CudaqBackend) and "Observable Readout" (ExpectationReadout), and draws SpeQtrum as a backend although in code it is a separate cloud client. Correct these in the source artwork when available. -->
+![h:430](img/overall.jpg)
+
+Today's path: `Circuit` → `DigitalPropagation` → `QiliSim`, with a `Readout` for samples or exact probabilities.
 
 ---
 
@@ -178,9 +219,10 @@ These examples connect states, measurement, gates, and circuits. All execution i
 
 Quantum papers use **bra-ket notation** to write the complex column and row vectors you know from NumPy:
 
+- A qubit's state is two complex **amplitudes**, $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$ with $|\alpha|^2 + |\beta|^2 = 1$. Think `np.array([alpha, beta])` with unit length.
 - A **ket** $|\psi\rangle$ ("ket psi") is a column vector. The basis states $|0\rangle$ and $|1\rangle$ represent definite 0 and 1 outcomes; $|0\rangle$ is `np.array([[1], [0]])`.
 - A **bra** $\langle\psi|$ is its conjugate transpose, `psi.conj().T`: transpose the vector and conjugate its complex entries.
-- For two qubits, $|01\rangle$ means $|0\rangle \otimes |1\rangle$. The **tensor product** $\otimes$ forms a joint vector by multiplying entries from the two vectors in pairs: `np.kron(ket0, ket1)`.
+- In Python, an amplitude such as `z = 0.6 + 0.8j` has a magnitude, `abs(z)`, and an angle, `cmath.phase(z)`. That angle is its **phase**.
 
 ---
 
@@ -194,30 +236,68 @@ Quantum papers use **bra-ket notation** to write the complex column and row vect
 
 ---
 
-## Part 1: states and measurement
+## Part 1: from amplitudes to counts
 
-- A **qubit's state** is represented here by two complex numbers, its **amplitudes**: one weight for $|0\rangle$, one for $|1\rangle$. Think `np.array([a, b])` with unit length.
-- Measuring in the $|0\rangle$ / $|1\rangle$ basis gives each outcome probability $|\text{amplitude}|^2$ (the **Born rule**) and leaves the qubit in that basis state.
-- Two qubits have four amplitudes, for $|00\rangle$, $|01\rangle$, $|10\rangle$, and $|11\rangle$; $n$ qubits have $2^n$.
-- Measurement returns one $n$-bit outcome. **Interference**, the addition and cancellation of amplitudes, changes which outcomes are likely.
+<div class="center">
+
+![h:320](img/amplitudes-to-counts.svg)
+
+</div>
+
+- **Born rule:** an outcome's probability is its amplitude's squared magnitude. Measuring returns one bit and **collapses** the qubit to that outcome.
+- One preparation and measurement is a **shot**. Over many shots, the relative frequencies approach the probabilities.
 
 ---
 
-## Part 1: superposition and entanglement
+## Part 1: many qubits
 
-- **Superposition:** more than one basis state has a nonzero amplitude.
-- **Relative phase:** the difference between the angles of complex amplitudes. It affects how amplitudes combine during interference.
-- **Entanglement:** a joint state that cannot be described by assigning an independent state to each qubit. Our two-qubit example produces matching random bits when measured.
-- **`QTensor`** represents both states and operators, the matrices that act on states.
+<div class="center">
+
+![h:300](img/qubits-doubling.svg)
+
+</div>
+
+- The **tensor product** $\otimes$ combines qubits: every entry of one vector times every entry of the other, `np.kron(a, b)`. In QiliSDK's bitstrings, the first character is qubit 0.
+- Each added qubit doubles the number of amplitudes: the state of 50 qubits takes about 18 PB to store. Measuring them still returns only 50 bits.
+
+---
+
+## Part 1: superposition and the Bloch sphere
+
+<div class="center">
+
+![h:320](img/bloch-sphere.svg)
+
+</div>
+
+- **Superposition:** more than one basis state has a nonzero amplitude in the measured basis.
+- On the **Bloch sphere**, a qubit's state is a point, and gates rotate the sphere.
+- $|\pm\rangle = (|0\rangle \pm |1\rangle)/\sqrt2$ both measure 50/50. The sign is a **relative phase**, which decides how amplitudes combine when they interfere.
+
+---
+
+## Part 1: entanglement
+
+<div class="center">
+
+![h:260](img/bell-vs-product.svg)
+
+</div>
+
+- **Entanglement:** a joint state that cannot be split into one state per qubit. Two separate $|+\rangle$ qubits (left) give all four outcomes; a Bell pair (right) gives only matching bits.
+- A coin flipped once and copied to both sides also matches. The Bell pair keeps matching when both qubits are measured in the $|+\rangle$/$|-\rangle$ basis; the copies do not.
+- It does not send messages: each side alone sees a fair coin, and the agreement shows only when the results are compared.
 
 ---
 
 ## `QTensor`: states and operators
 
-![h:480](img/qtensor.jpg)
+![h:420](img/qtensor.jpg)
+
+Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, and `.probabilities()`; the other tools are for further study.
 
 <!-- The notebook uses state constructors, matrix operations, and probabilities. Partial trace, entropy, and fidelity are tools for further study. -->
-<!-- Artwork review: img/qtensor.jpg labels von Neumann entropy as "Von Neuman". Correct the spelling in the source artwork when available; this repository contains only the raster image. -->
+<!-- Artwork review: img/qtensor.jpg reads "Von Neuman" (von Neumann) and "Basic State" (Basis State; the API is basis_state). Correct both in the source artwork when available; this repository contains only the raster image. -->
 
 ---
 
@@ -231,33 +311,87 @@ Quantum papers use **bra-ket notation** to write the complex column and row vect
 
 ---
 
-## Part 2: gates and circuits
+## Part 2: gates
 
-- **Gates** are reversible matrix operations. Hadamard ($H$) creates superposition from $|0\rangle$; controlled-NOT (**CNOT**) can then entangle it with a second qubit.
-- A **circuit** is an ordered sequence of operations on qubits. These examples start with every qubit in $|0\rangle$.
-- **Measurement** returns classical bits at the end of these circuits.
-- A **shot** represents one preparation and measurement. Sampling `nshots` times gives counts whose relative frequencies approach the ideal probabilities as the sample grows.
+- A **gate** is a unitary matrix applied to the state: `state = U @ state`. Unitary gates are reversible, unlike AND or OR, and keep the probabilities summing to 1.
+- Hadamard ($H$) turns $|0\rangle$ into the equal superposition $|+\rangle$. Controlled-NOT (**CNOT**) flips its target qubit when its control qubit is 1, and can entangle the two.
+- **Measurement** is not a gate in this sense: it returns classical bits and cannot be undone.
+- Rotation angles are keyword-only: `RX(0, theta=np.pi / 2)` rotates qubit 0. Passing the angle positionally raises a `TypeError`.
 
 ---
 
-## Part 2: executing a circuit
+## Part 2: reading a circuit
 
-- **Functional:** what to run. `DigitalPropagation(circuit)` wraps a circuit so a backend can execute it.
-- **Backend:** where to run it. We use the `QiliSim` simulator.
-- **Readout:** what to collect, such as samples or state information. Supported readouts depend on the backend.
+<div class="center">
 
-$$\texttt{Backend.execute(functional, readout)} \rightarrow \texttt{Result}$$
+![h:360](img/circuit-anatomy.svg)
 
-This separates the circuit's description from its execution: you build the circuit, choose a compatible backend, and request the results you need.
+</div>
+
+- Each wire is a qubit that starts in $|0\rangle$, with qubit 0 on top. Time runs left to right. The CNOT's dot marks its control and ⊕ its target. This is the Bell circuit you will run.
+- Applying $A$ and then $B$ computes $B\,A\,|\psi\rangle$: the drawing reads left to right, the matrix product right to left.
+
+---
+
+## Part 2: interference
+
+<div class="center">
+
+![h:320](img/interference-hh.svg)
+
+</div>
+
+- Each arrow multiplies the amplitude by $1/\sqrt2$, the red one by $-1/\sqrt2$, and amplitudes arriving at the same state add. $H$ then $H$ returns $|0\rangle$ every time, while a classical coin randomized twice stays 50/50.
+- Measuring between the two gates destroys the effect. Algorithms arrange cancellations like this so that wrong answers become unlikely.
+
+---
+
+## Part 2: running a circuit
+
+<div class="center">
+
+![h:280](img/execution-pattern.svg)
+
+</div>
+
+- **Functional:** what to run. **Backend:** where to run it. **Readout:** what to collect. Build the circuit once, then choose the backend and readout.
+- Sampling runs the circuit `nshots` times, and the counts vary between runs (**shot noise**). A simulator can also return the exact probabilities; a quantum processor (QPU) only gives samples.
+
+<!-- QiliSim is a classical program, so its samples are pseudorandom. Real QPUs are reached through the SpeQtrum cloud client, which has its own submit/wait calls. -->
 
 ---
 
 ## Part 2: from circuit to chip
 
-- A chip's **native gate set** lists its available operations; its **coupling map** lists connected qubit pairs.
+- A chip's **native gate set** lists the operations it runs directly. Here that is the general single-qubit gate `U3` and the two-qubit `CZ`. Its **coupling map** lists which qubit pairs are linked.
 - The **transpiler** is a compiler: it translates your gates into the chip's instructions and maps your circuit's qubits onto physical qubits.
-- **SABRE** is the routing heuristic used here. It inserts **SWAP** operations to exchange qubit states until the required pairs can interact.
-- Every extra gate is another opportunity for an error. Comparing a line and a ring of four qubits shows how better connectivity can reduce the number of gates needed.
+- Qubits lose their state over time (**decoherence**) and every gate can fail, so every extra gate costs accuracy.
+
+---
+
+## Part 2: routing with SWAP
+
+<div class="center">
+
+![h:300](img/swap-routing.svg)
+
+</div>
+
+- When two states that must interact sit on unlinked qubits, the router (**SABRE** here) inserts **SWAP**s to bring them next to each other.
+- Each SWAP costs three two-qubit gates. SABRE makes random choices, so the count can change between runs.
+
+---
+
+## Part 2: line or ring
+
+<div class="center">
+
+![h:320](img/line-vs-ring.svg)
+
+</div>
+
+- Solid lines are couplers on the chip; dashed lines are pairs the QFT (quantum Fourier transform) circuit needs but the chip lacks.
+- In Exercise 2.3 you add the coupler 3–0 to turn the line into a ring, then count the two-qubit gates it saves.
 
 ---
 
@@ -267,7 +401,7 @@ This separates the circuit's description from its execution: you build the circu
 
 `QTensor` describes states and operators. `Circuit` describes operations, and `DigitalPropagation` wraps a circuit for execution. `Readout` selects the results collected by a backend such as `QiliSim`.
 
-Compiling the QFT, a **quantum Fourier transform** circuit, shows how the chip's wiring changes the gate count without changing the intended computation.
+Compiling the QFT, a **quantum Fourier transform** circuit, shows how the chip's wiring changes the gate count. The compiled circuit computes the same thing, with its qubits relabeled, but a sparser chip needs more gates.
 
 ---
 
@@ -276,9 +410,9 @@ Compiling the QFT, a **quantum Fourier transform** circuit, shows how the chip's
 The **3-hour EuroPython 2026 tutorial** continues with:
 
 - **Analog computing:** describing a system's energy with a Hamiltonian, then using quantum annealing to schedule conference talks.
-- **Variational algorithms:** finding a molecule's lowest-energy state with the variational quantum eigensolver (**VQE**) and solving optimization problems with the quantum approximate optimization algorithm (**QAOA**).
+- **Variational algorithms:** finding a molecule's lowest-energy state with the variational quantum eigensolver (**VQE**) and finding approximate solutions to optimization problems with the quantum approximate optimization algorithm (**QAOA**).
 - **Noise:** how gate errors affect answers, and how much error a calculation can tolerate.
-- **Execution:** swapping backends, exporting circuits, and building a forecaster that uses a quantum system to process a sequence of inputs.
+- **Execution:** swapping backends, exporting circuits, and building a forecaster with **quantum reservoir computing**, where a quantum system processes a sequence of inputs.
 
 [github.com/qilimanjaro-tech/europython2026-qilisdk-tutorial](https://github.com/qilimanjaro-tech/europython2026-qilisdk-tutorial)
 

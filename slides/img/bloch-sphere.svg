@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 440" width="1280" height="440">
+  <rect width="1280" height="440" fill="#ffffff"/>
+  <g font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+    <circle cx="640" cy="220" r="150" fill="#ffffff" stroke="#1c1c2e" stroke-width="3"/>
+    <ellipse cx="640" cy="220" rx="150" ry="38" fill="none" stroke="#8a8aa0" stroke-width="3" stroke-dasharray="10 8"/>
+    <circle cx="640" cy="70" r="11" fill="#6c4cf1"/>
+    <circle cx="640" cy="370" r="11" fill="#6c4cf1"/>
+    <circle cx="790" cy="220" r="11" fill="#6c4cf1"/>
+    <circle cx="490" cy="220" r="11" fill="#6c4cf1"/>
+    <text x="640" y="46" text-anchor="middle" font-size="40" fill="#1c1c2e">|0⟩</text>
+    <text x="640" y="420" text-anchor="middle" font-size="40" fill="#1c1c2e">|1⟩</text>
+    <text x="814" y="232" font-size="40" fill="#1c1c2e">|+⟩</text>
+    <text x="466" y="232" text-anchor="end" font-size="40" fill="#1c1c2e">|−⟩</text>
+  </g>
+</svg>
