@@ -188,7 +188,7 @@ Start now: the installation can run while we go through the next slides.
 ## How we'll work
 
 - Most of the session takes place in the notebooks. Each part starts with a short explanation, continues with code we write together, and ends with exercises.
-- Use `notebooks/…` to follow along and complete the `# TODO` cells.
+- Use `notebooks/…` to follow along and complete the exercise cells.
 - Completed exercises and saved outputs are in `notebooks/solutions/…`.
 - The examples were verified with **QiliSDK 0.3.0**. Use that version to match the API shown here.
 
@@ -197,7 +197,6 @@ Start now: the installation can run while we go through the next slides.
 ## What you'll build
 
 - A **loaded quantum coin** whose chance of landing on 1 is set to 75% (Part 1).
-- A **quantum dice roller** with an equal chance of each of six faces (Part 2).
 - A **shared random bit for three parties**, so all three receive the same result (Part 2).
 - A circuit **compiled for a chip layout**, with the extra gates counted (Part 2).
 
@@ -215,6 +214,16 @@ Today's path: `Circuit` → `DigitalPropagation` → `QiliSim`, with a `Readout`
 
 ---
 
+<!-- _class: divider -->
+
+<p class="kicker">Part 1 · notebooks/01_foundations.ipynb</p>
+
+# Foundations
+
+### Qubits, superposition, and measurement probabilities
+
+---
+
 ## Bra-ket notation
 
 Quantum papers use **bra-ket notation** to write the complex column and row vectors you know from NumPy:
@@ -226,43 +235,7 @@ Quantum papers use **bra-ket notation** to write the complex column and row vect
 
 ---
 
-<!-- _class: divider -->
-
-<p class="kicker">Part 1 · notebooks/01_foundations.ipynb</p>
-
-# Foundations
-
-### Qubits, superposition, and measurement probabilities
-
----
-
-## Part 1: from amplitudes to counts
-
-<div class="center">
-
-![h:320](img/amplitudes-to-counts.svg)
-
-</div>
-
-- **Born rule:** an outcome's probability is its amplitude's squared magnitude. Measuring returns one bit and **collapses** the qubit to that outcome.
-- One preparation and measurement is a **shot**. Over many shots, the relative frequencies approach the probabilities.
-
----
-
-## Part 1: many qubits
-
-<div class="center">
-
-![h:300](img/qubits-doubling.svg)
-
-</div>
-
-- The **tensor product** $\otimes$ combines qubits: every entry of one vector times every entry of the other, `np.kron(a, b)`. In QiliSDK's bitstrings, the first character is qubit 0.
-- Each added qubit doubles the number of amplitudes: the state of 50 qubits takes about 18 PB to store. Measuring them still returns only 50 bits.
-
----
-
-## Part 1: superposition and the Bloch sphere
+## Part 1: Superposition and the Bloch sphere
 
 <div class="center">
 
@@ -276,7 +249,33 @@ Quantum papers use **bra-ket notation** to write the complex column and row vect
 
 ---
 
-## Part 1: entanglement
+## Part 1: From amplitudes to counts
+
+<div class="center">
+
+![h:320](img/amplitudes-to-counts.svg)
+
+</div>
+
+- **Born rule:** an outcome's probability is its amplitude's squared magnitude. Measuring returns one bit and **collapses** the qubit to that outcome.
+- One preparation and measurement is a **shot**. Over many shots, the relative frequencies approach the probabilities.
+
+---
+
+## Part 1: Many qubits
+
+<div class="center">
+
+![h:300](img/qubits-doubling.svg)
+
+</div>
+
+- The **tensor product** $\otimes$ combines qubits: every entry of one vector times every entry of the other, `np.kron(a, b)`. In QiliSDK's bitstrings, the first character is qubit 0.
+- Each added qubit doubles the number of amplitudes: the state of 50 qubits takes about 18 PB to store. Measuring them still returns only 50 bits.
+
+---
+
+## Part 1: Entanglement
 
 <div class="center">
 
@@ -290,7 +289,7 @@ Quantum papers use **bra-ket notation** to write the complex column and row vect
 
 ---
 
-## `QTensor`: states and operators
+## `QTensor`: States and operators
 
 ![h:420](img/qtensor.jpg)
 
@@ -307,11 +306,11 @@ Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, `.probabilities()`, and `.
 
 # Circuits & Digital Quantum Computing
 
-### Interference, a dice roller, and compiling for a chip layout
+### Interference, a shared random bit, and compiling for a chip layout
 
 ---
 
-## Part 2: gates
+## Part 2: Gates
 
 - A **gate** is a unitary matrix applied to the state: `state = U @ state`. Unitary gates are reversible, unlike AND or OR, and keep the probabilities summing to 1.
 - Hadamard ($H$) turns $|0\rangle$ into the equal superposition $|+\rangle$. Controlled-NOT (**CNOT**) flips its target qubit when its control qubit is 1, and can entangle the two.
@@ -320,7 +319,7 @@ Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, `.probabilities()`, and `.
 
 ---
 
-## Part 2: reading a circuit
+## Part 2: Reading a circuit
 
 <div class="center">
 
@@ -333,7 +332,7 @@ Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, `.probabilities()`, and `.
 
 ---
 
-## Part 2: interference
+## Part 2: Interference
 
 <div class="center">
 
@@ -346,7 +345,7 @@ Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, `.probabilities()`, and `.
 
 ---
 
-## Part 2: running a circuit
+## Part 2: Running a circuit
 
 <div class="center">
 
@@ -361,7 +360,7 @@ Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, `.probabilities()`, and `.
 
 ---
 
-## Part 2: from circuit to chip
+## Part 2: From circuit to chip
 
 - A chip's **native gate set** lists the operations it runs directly. Here that is the general single-qubit gate `U3` and the two-qubit `CZ`. Its **coupling map** lists which qubit pairs are linked.
 - The **transpiler** is a compiler: it translates your gates into the chip's instructions and maps your circuit's qubits onto physical qubits.
@@ -369,7 +368,7 @@ Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, `.probabilities()`, and `.
 
 ---
 
-## Part 2: routing with SWAP
+## Part 2: Routing with SWAP
 
 <div class="center">
 
@@ -382,7 +381,7 @@ Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, `.probabilities()`, and `.
 
 ---
 
-## Part 2: line or ring
+## Part 2: Line or ring
 
 <div class="center">
 
@@ -391,13 +390,13 @@ Today we use `ket`, `bra`, `ghz`, `tensor_prod`, `@`, `.probabilities()`, and `.
 </div>
 
 - Solid lines are couplers on the chip; dashed lines are pairs the QFT (quantum Fourier transform) circuit needs but the chip lacks.
-- In Exercise 2.3 you add the coupler 3–0 to turn the line into a ring, then count the two-qubit gates it saves.
+- In Exercise 2.2 you add the coupler 3–0 to turn the line into a ring, then count the two-qubit gates it saves.
 
 ---
 
 ## What the examples connect
 
-**Loaded coin** → **dice roller** → **shared random bit** → **compiled circuit**
+**Loaded coin** → **shared random bit** → **compiled circuit**
 
 `QTensor` describes states and operators. `Circuit` describes operations, and `DigitalPropagation` wraps a circuit for execution. `Readout` selects the results collected by a backend such as `QiliSim`.
 

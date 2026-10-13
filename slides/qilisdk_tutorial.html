@@ -102,7 +102,7 @@
 <h2 id="how-well-work">How we'll work</h2>
 <ul>
 <li>Most of the session takes place in the notebooks. Each part starts with a short explanation, continues with code we write together, and ends with exercises.</li>
-<li>Use <code>notebooks/…</code> to follow along and complete the <code># TODO</code> cells.</li>
+<li>Use <code>notebooks/…</code> to follow along and complete the exercise cells.</li>
 <li>Completed exercises and saved outputs are in <code>notebooks/solutions/…</code>.</li>
 <li>The examples were verified with <strong>QiliSDK 0.3.0</strong>. Use that version to match the API shown here.</li>
 </ul>
@@ -112,7 +112,6 @@
 <h2 id="what-youll-build">What you'll build</h2>
 <ul>
 <li>A <strong>loaded quantum coin</strong> whose chance of landing on 1 is set to 75% (Part 1).</li>
-<li>A <strong>quantum dice roller</strong> with an equal chance of each of six faces (Part 2).</li>
 <li>A <strong>shared random bit for three parties</strong>, so all three receive the same result (Part 2).</li>
 <li>A circuit <strong>compiled for a chip layout</strong>, with the extra gates counted (Part 2).</li>
 </ul>
@@ -126,7 +125,12 @@
 <p>Today's path: <code>Circuit</code> → <code>DigitalPropagation</code> → <code>QiliSim</code>, with a <code>Readout</code> for samples or exact probabilities.</p>
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="12" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" data-class="divider" lang="en-US" class="divider" data-marpit-pagination="12" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;--class:divider;" data-marpit-pagination-total="29" data-size="16:9"><p class="kicker">Part 1 · notebooks/01_foundations.ipynb</p>
+<h1 id="foundations">Foundations</h1>
+<h3 id="qubits-superposition-and-measurement-probabilities">Qubits, superposition, and measurement probabilities</h3>
+<footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="13" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
 <h2 id="bra-ket-notation">Bra-ket notation</h2>
 <p>Quantum papers use <strong>bra-ket notation</strong> to write the complex column and row vectors you know from NumPy:</p>
 <ul>
@@ -137,35 +141,8 @@
 </ul>
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" data-class="divider" lang="en-US" class="divider" data-marpit-pagination="13" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;--class:divider;" data-marpit-pagination-total="29" data-size="16:9"><p class="kicker">Part 1 · notebooks/01_foundations.ipynb</p>
-<h1 id="foundations">Foundations</h1>
-<h3 id="qubits-superposition-and-measurement-probabilities">Qubits, superposition, and measurement probabilities</h3>
-<footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="14" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-1-from-amplitudes-to-counts">Part 1: from amplitudes to counts</h2>
-<div class="center">
-<p><img src="img/amplitudes-to-counts.svg" alt="" style="height:320px;" /></p>
-</div>
-<ul>
-<li><strong>Born rule:</strong> an outcome's probability is its amplitude's squared magnitude. Measuring returns one bit and <strong>collapses</strong> the qubit to that outcome.</li>
-<li>One preparation and measurement is a <strong>shot</strong>. Over many shots, the relative frequencies approach the probabilities.</li>
-</ul>
-<footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="15" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-1-many-qubits">Part 1: many qubits</h2>
-<div class="center">
-<p><img src="img/qubits-doubling.svg" alt="" style="height:300px;" /></p>
-</div>
-<ul>
-<li>The <strong>tensor product</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊗</mo></mrow><annotation encoding="application/x-tex">\otimes</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">⊗</span></span></span></span> combines qubits: every entry of one vector times every entry of the other, <code>np.kron(a, b)</code>. In QiliSDK's bitstrings, the first character is qubit 0.</li>
-<li>Each added qubit doubles the number of amplitudes: the state of 50 qubits takes about 18 PB to store. Measuring them still returns only 50 bits.</li>
-</ul>
-<footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="16" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-1-superposition-and-the-bloch-sphere">Part 1: superposition and the Bloch sphere</h2>
+<h2 id="part-1-superposition-and-the-bloch-sphere">Part 1: Superposition and the Bloch sphere</h2>
 <div class="center">
 <p><img src="img/bloch-sphere.svg" alt="" style="height:320px;" /></p>
 </div>
@@ -187,8 +164,30 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 </ul>
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="15" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
+<h2 id="part-1-from-amplitudes-to-counts">Part 1: From amplitudes to counts</h2>
+<div class="center">
+<p><img src="img/amplitudes-to-counts.svg" alt="" style="height:320px;" /></p>
+</div>
+<ul>
+<li><strong>Born rule:</strong> an outcome's probability is its amplitude's squared magnitude. Measuring returns one bit and <strong>collapses</strong> the qubit to that outcome.</li>
+<li>One preparation and measurement is a <strong>shot</strong>. Over many shots, the relative frequencies approach the probabilities.</li>
+</ul>
+<footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="16" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
+<h2 id="part-1-many-qubits">Part 1: Many qubits</h2>
+<div class="center">
+<p><img src="img/qubits-doubling.svg" alt="" style="height:300px;" /></p>
+</div>
+<ul>
+<li>The <strong>tensor product</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊗</mo></mrow><annotation encoding="application/x-tex">\otimes</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">⊗</span></span></span></span> combines qubits: every entry of one vector times every entry of the other, <code>np.kron(a, b)</code>. In QiliSDK's bitstrings, the first character is qubit 0.</li>
+<li>Each added qubit doubles the number of amplitudes: the state of 50 qubits takes about 18 PB to store. Measuring them still returns only 50 bits.</li>
+</ul>
+<footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
+</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="17" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-1-entanglement">Part 1: entanglement</h2>
+<h2 id="part-1-entanglement">Part 1: Entanglement</h2>
 <div class="center">
 <p><img src="img/bell-vs-product.svg" alt="" style="height:260px;" /></p>
 </div>
@@ -200,18 +199,18 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="18" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="qtensor-states-and-operators"><code>QTensor</code>: states and operators</h2>
+<h2 id="qtensor-states-and-operators"><code>QTensor</code>: States and operators</h2>
 <p><img src="img/qtensor.jpg" alt="" style="height:420px;" /></p>
 <p>Today we use <code>ket</code>, <code>bra</code>, <code>ghz</code>, <code>tensor_prod</code>, <code>@</code>, <code>.probabilities()</code>, and <code>.sample()</code>; the other tools are for further study.</p>
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" data-class="divider" lang="en-US" class="divider" data-marpit-pagination="19" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;--class:divider;" data-marpit-pagination-total="29" data-size="16:9"><p class="kicker">Part 2 · notebooks/02_circuits.ipynb</p>
 <h1 id="circuits--digital-quantum-computing">Circuits &amp; Digital Quantum Computing</h1>
-<h3 id="interference-a-dice-roller-and-compiling-for-a-chip-layout">Interference, a dice roller, and compiling for a chip layout</h3>
+<h3 id="interference-a-shared-random-bit-and-compiling-for-a-chip-layout">Interference, a shared random bit, and compiling for a chip layout</h3>
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="20" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-2-gates">Part 2: gates</h2>
+<h2 id="part-2-gates">Part 2: Gates</h2>
 <ul>
 <li>A <strong>gate</strong> is a unitary matrix applied to the state: <code>state = U @ state</code>. Unitary gates are reversible, unlike AND or OR, and keep the probabilities summing to 1.</li>
 <li>Hadamard (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0813em;">H</span></span></span></span>) turns <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mn>0</mn><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">|0\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣0</span><span class="mclose">⟩</span></span></span></span> into the equal superposition <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mo>+</mo><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">|+\rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord">+</span><span class="mclose">⟩</span></span></span></span>. Controlled-NOT (<strong>CNOT</strong>) flips its target qubit when its control qubit is 1, and can entangle the two.</li>
@@ -221,7 +220,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="21" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-2-reading-a-circuit">Part 2: reading a circuit</h2>
+<h2 id="part-2-reading-a-circuit">Part 2: Reading a circuit</h2>
 <div class="center">
 <p><img src="img/circuit-anatomy.svg" alt="" style="height:360px;" /></p>
 </div>
@@ -232,7 +231,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="22" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-2-interference">Part 2: interference</h2>
+<h2 id="part-2-interference">Part 2: Interference</h2>
 <div class="center">
 <p><img src="img/interference-hh.svg" alt="" style="height:320px;" /></p>
 </div>
@@ -265,7 +264,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="23" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-2-running-a-circuit">Part 2: running a circuit</h2>
+<h2 id="part-2-running-a-circuit">Part 2: Running a circuit</h2>
 <div class="center">
 <p><img src="img/execution-pattern.svg" alt="" style="height:280px;" /></p>
 </div>
@@ -276,7 +275,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="24" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-2-from-circuit-to-chip">Part 2: from circuit to chip</h2>
+<h2 id="part-2-from-circuit-to-chip">Part 2: From circuit to chip</h2>
 <ul>
 <li>A chip's <strong>native gate set</strong> lists the operations it runs directly. Here that is the general single-qubit gate <code>U3</code> and the two-qubit <code>CZ</code>. Its <strong>coupling map</strong> lists which qubit pairs are linked.</li>
 <li>The <strong>transpiler</strong> is a compiler: it translates your gates into the chip's instructions and maps your circuit's qubits onto physical qubits.</li>
@@ -285,7 +284,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="25" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-2-routing-with-swap">Part 2: routing with SWAP</h2>
+<h2 id="part-2-routing-with-swap">Part 2: Routing with SWAP</h2>
 <div class="center">
 <p><img src="img/swap-routing.svg" alt="" style="height:300px;" /></p>
 </div>
@@ -296,19 +295,19 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="26" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
-<h2 id="part-2-line-or-ring">Part 2: line or ring</h2>
+<h2 id="part-2-line-or-ring">Part 2: Line or ring</h2>
 <div class="center">
 <p><img src="img/line-vs-ring.svg" alt="" style="height:320px;" /></p>
 </div>
 <ul>
 <li>Solid lines are couplers on the chip; dashed lines are pairs the QFT (quantum Fourier transform) circuit needs but the chip lacks.</li>
-<li>In Exercise 2.3 you add the coupler 3–0 to turn the line into a ring, then count the two-qubit gates it saves.</li>
+<li>In Exercise 2.2 you add the coupler 3–0 to turn the line into a ring, then count the two-qubit gates it saves.</li>
 </ul>
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-footer="Learn Quantum Computing with QiliSDK · PyCon Greece 2026" lang="en-US" data-marpit-pagination="27" style="--paginate:true;--footer:Learn Quantum Computing with QiliSDK · PyCon Greece 2026;" data-marpit-pagination-total="29" data-size="16:9">
 <h2 id="what-the-examples-connect">What the examples connect</h2>
-<p><strong>Loaded coin</strong> → <strong>dice roller</strong> → <strong>shared random bit</strong> → <strong>compiled circuit</strong></p>
+<p><strong>Loaded coin</strong> → <strong>shared random bit</strong> → <strong>compiled circuit</strong></p>
 <p><code>QTensor</code> describes states and operators. <code>Circuit</code> describes operations, and <code>DigitalPropagation</code> wraps a circuit for execution. <code>Readout</code> selects the results collected by a backend such as <code>QiliSim</code>.</p>
 <p>Compiling the QFT, a <strong>quantum Fourier transform</strong> circuit, shows how the chip's wiring changes the gate count. The compiled circuit computes the same thing, with its qubits relabeled, but a sparser chip needs more gates.</p>
 <footer>Learn Quantum Computing with QiliSDK · PyCon Greece 2026</footer>
