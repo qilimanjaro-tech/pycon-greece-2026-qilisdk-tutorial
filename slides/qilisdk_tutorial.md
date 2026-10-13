@@ -99,8 +99,8 @@ section.divider code { background: rgba(255,255,255,.18); color: #fff; }
 
 ## Introduction
 
-- **Vyron Vasileiadis**, Tech Lead at **Qilimanjaro Quantum Tech** · vyron@qilimanjaro.tech
-- https://github.com/fedonman · https://linkedin.com/in/fedonman
+- **Vyron Vasileiadis**, Tech Lead at **Qilimanjaro Quantum Tech**
+- [github.com/fedonman](https://github.com/fedonman) · [linkedin.com/in/fedonman](https://linkedin.com/in/fedonman)
 - **Qilimanjaro** builds **analog quantum computers**, **multimodal data centers**, and the software to run them.
 - **QiliSDK** is that software stack's open-source Python SDK: **digital** and **analog** quantum computing in one API, along with the C++ **QiliSim** simulator. It is the tool we will use today.
 
